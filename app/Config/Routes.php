@@ -12,10 +12,14 @@ $routes->get('/auth/register', 'Auth::register');
 $routes->post('/auth/register', 'Auth::registered');
 $routes->get('/auth/logout', 'Auth::logout');
 
+$routes->post('/document', 'Document::new');
+
 $routes->group('', ['filter' => '\App\Filters\AuthFilter'], function ($routes) {
   $routes->get('dashboard', 'Dashboard::index');
 
   $routes->get('document', 'Document::index');
+  //$routes->get('document/new', 'Document::new');
+  $routes->resource('document', ['controller' => '\App\Controllers\document']);
 
   $routes->get('profile', 'Users::profile');
   $routes->get('profile/edit', 'Users::editProfile');

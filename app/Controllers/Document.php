@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use PhpParser\Node\Expr\AssignOp\Concat;
+
 class Document extends BaseController
 {
     /**
@@ -48,6 +50,7 @@ class Document extends BaseController
      */
     public function new()
     {
+
         $data = [
             'title' => $this->title,
             'link' => $this->link,
@@ -65,10 +68,8 @@ class Document extends BaseController
     public function create()
     {
         $rules = [
-            'name' => 'required',
-            'password' => 'required|min_length[8]',
-            'email' => 'required|is_unique[users.email]|valid_email',
-            'username' => 'required|is_unique[users.username]',
+            'docname' => 'required|min_length[8]',
+            'docdescription' => 'required|min_length[12]',
         ];
 
         $dataBerkas = $this->request->getFile('file');
@@ -84,20 +85,19 @@ class Document extends BaseController
         }
 
         $data = [
-            'name' => htmlspecialchars($this->request->getVar('name')),
-            'email' => htmlspecialchars($this->request->getVar('email')),
-            'username' => htmlspecialchars($this->request->getVar('username')),
-            'role_id' => htmlspecialchars($this->request->getVar('role_id')),
-            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+            'docname' => htmlspecialchars($this->request->getVar('docname')),
+            'docdescription' => htmlspecialchars($this->request->getVar('docdescription')),
         ];
 
         if ($dataBerkas->getError() != 4) {
 
             $fileName = $dataBerkas->getName();
+            $fileExt = $dataBerkas->getExtension();
+            $fileName = $fileName + $fileExt;
 
             $dataBerkas->move($this->dir, $fileName);
 
-            $data['image'] = $fileName;
+            $data['xdoc'] = $fileName;
         }
 
         $res = $this->model->save($data);
