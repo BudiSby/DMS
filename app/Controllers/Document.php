@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use PhpParser\Node\Expr\AssignOp\Concat;
-
 class Document extends BaseController
 {
     /**
@@ -55,7 +53,6 @@ class Document extends BaseController
         $data = [
             'title' => $this->title,
             'link' => $this->link,
-            'role' => $this->model->findAll(),
         ];
 
         return view($this->view . '/new', $data);
@@ -68,7 +65,7 @@ class Document extends BaseController
      */
     public function create()
     {
-        setAlert('success', 'Success', 'Add Success XYZ');
+
         $rules = [
             'docname' => 'required|min_length[8]',
             'docdescription' => 'required|min_length[12]',
@@ -116,6 +113,8 @@ class Document extends BaseController
      */
     public function edit($id = null)
     {
+        setAlert('success', 'Success', 'Add Success EDIT' . $id);
+
         $result = $this->model->find($id);
         if (!$result) {
             setAlert('warning', 'Warning', 'NOT VALID');
@@ -126,7 +125,6 @@ class Document extends BaseController
             'title' => $this->title,
             'link' => $this->link,
             'data' => $result,
-            'role' => $this->model->getRoles(),
         ];
 
         return view($this->view . '/edit', $data);
@@ -260,120 +258,5 @@ class Document extends BaseController
             setAlert('warning', 'Warning', 'Active Failed');
         }
         return redirect()->to($this->link);
-    }
-
-    public function profile()
-    {
-        $data = [
-            'title' => 'My Profile',
-            'data' => getProfile()
-        ];
-
-        return view($this->view . '/profile', $data);
-    }
-
-    public function editProfile()
-    {
-        $data = [
-            'title' => 'Edit My Profile',
-            'data' => getProfile()
-        ];
-
-        return view($this->view . '/profile_edit', $data);
-    }
-
-    public function updateProfile()
-    {
-        $rules = [
-            'name'  => 'required|min_length[3]',
-            'email' => 'required|valid_email',
-        ];
-
-        $input = $this->request->getVar();
-
-        $dataUser = getProfile();
-
-        if ($input['email'] != $dataUser['email']) {
-            $rules['email'] = 'required|valid_email|is_unique[users.email]';
-        }
-
-        $dataBerkas = $this->request->getFile('image');
-
-        if ($dataBerkas->getError() != 4) {
-            $rules['image'] = 'uploaded[image]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/gif,image/png,image/webp]';
-        }
-
-        if (!$this->validateData($input, $rules)) {
-            return redirect()->back()->withInput();
-        }
-
-        $data = [
-            'email' => $this->request->getVar('email'),
-            'name' => $this->request->getVar('name'),
-        ];
-
-        if ($dataBerkas->getError() != 4) {
-            $fileName = $dataBerkas->getName();
-            $fileName = sha1(date("Y-m-d H:i:s"));
-            $fileExt = $dataBerkas->getExtension();
-            $fileName = $fileName . '.' . $fileExt;
-
-            if ($dataUser['image'] != 'user.png') {
-                @unlink($this->dir . '/' . $dataUser['image']);
-            }
-
-            $dataBerkas->move($this->dir, $fileName);
-            $data['image'] = $fileName;
-        }
-
-        $res = $this->model->update($dataUser['id'], $data);
-        if ($res) {
-            setAlert('success', 'Success', 'Update Success');
-        } else {
-            setAlert('warning', 'Warning', 'Update Failed');
-        }
-        return redirect()->to('profile');
-    }
-
-    public function changePassword()
-    {
-        $data = [
-            'title' => 'Change Password',
-            'link' => 'change-password'
-        ];
-
-        return view($this->view . '/change_password', $data);
-    }
-
-
-    public function updatePassword()
-    {
-        $password_old = $this->request->getVar('password_old');
-        $password_new = $this->request->getVar('password_new');
-        $password_retype = $this->request->getVar('password_retype');
-
-        $dataRes = getProfile();
-
-        if (password_verify($password_old, $dataRes['password'])) {
-            if ($password_new == $password_retype) {
-                $data = [
-                    'password' => password_hash($password_new, PASSWORD_DEFAULT)
-                ];
-
-                $this->model->update($dataRes['id'], $data);
-
-                setAlert('success', 'Success', 'Password Changed Successfully');
-            } else {
-                setAlert('warning', 'Warning', 'The new password is not the same');
-            }
-        } else {
-            // setAlert('warning', 'Warning', 'The old password is different');
-            $data = [
-                'password_old' => 'The old password is different'
-            ];
-            return redirect()->back()->with('_ci_validation_errors', $data)->withInput();
-        }
-
-        return redirect()->to('change-password');
     }
 }

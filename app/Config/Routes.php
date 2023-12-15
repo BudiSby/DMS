@@ -17,9 +17,11 @@ $routes->post('/document', 'Document::new');
 $routes->group('', ['filter' => '\App\Filters\AuthFilter'], function ($routes) {
   $routes->get('dashboard', 'Dashboard::index');
 
-  $routes->get('document', 'Document::index');
+  //$routes->get('document', 'Document::index');
   //$routes->get('document/new', 'Document::new');
+  $routes->get('document/active/(:num)/(:num)', 'document::active/$1/$2');
   $routes->resource('document', ['controller' => '\App\Controllers\document']);
+
 
   $routes->get('profile', 'Users::profile');
   $routes->get('profile/edit', 'Users::editProfile');
