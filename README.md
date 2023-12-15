@@ -1,4 +1,4 @@
-# What is CodeIgniter 4 AdminLTE
+# CodeIgniter 4 AdminLTE
 
 Template login, register and dashboard AdminLTE
 
