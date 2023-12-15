@@ -76,10 +76,6 @@ class Document extends BaseController
 
         $dataBerkas = $this->request->getFile('file');
 
-        if ($dataBerkas->getError() != 4) {
-            $rules['file'] = 'uploaded[image]|max_size[image,2048]|mime_in[image,image/png,image/jpeg]|ext_in[image,png,jpg,gif]|is_image[image]';
-        }
-
         $input = $this->request->getVar();
 
         if (!$this->validateData($input, $rules)) {

@@ -48,7 +48,7 @@
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
 
                             <div class="form-group">
-                                <label for="image">Doc File</label>
+                                <label for="docfile">Doc File</label>
                                 <input type="file" class="form-control <?= ($error = validation_show_error('image')) ? 'border-danger' : ''; ?>" id="docfile" name="docfile">
                             </div>
 
