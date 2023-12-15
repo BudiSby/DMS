@@ -96,6 +96,9 @@ class Users extends BaseController
         if ($dataBerkas->getError() != 4) {
 
             $fileName = $dataBerkas->getName();
+            $fileName = sha1(date("Y-m-d H:i:s"));
+            $fileExt = $dataBerkas->getExtension();
+            $fileName = $fileName . '.' . $fileExt;
 
             $dataBerkas->move($this->dir, $fileName);
 
@@ -189,6 +192,8 @@ class Users extends BaseController
 
             $fileName = $dataBerkas->getName();
             $fileName = sha1(date("Y-m-d H:i:s"));
+            $fileExt = $dataBerkas->getExtension();
+            $fileName = $fileName . '.' . $fileExt;
 
             $dataBerkas->move($this->dir, $fileName);
 
@@ -315,6 +320,9 @@ class Users extends BaseController
 
         if ($dataBerkas->getError() != 4) {
             $fileName = $dataBerkas->getName();
+            $fileName = sha1(date("Y-m-d H:i:s"));
+            $fileExt = $dataBerkas->getExtension();
+            $fileName = $fileName . '.' . $fileExt;
 
             if ($dataUser['image'] != 'user.png') {
                 @unlink($this->dir . '/' . $dataUser['image']);

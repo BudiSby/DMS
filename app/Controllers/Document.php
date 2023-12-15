@@ -16,7 +16,7 @@ class Document extends BaseController
     private $link = 'document';
     private $view = 'document';
     private $title = 'Document';
-    private $dir = 'public/assets/uploads/users';
+    private $dir = 'public/assets/uploads/documents';
     public function __construct()
     {
         $this->model = new \App\Models\DocumentModel();
@@ -29,6 +29,8 @@ class Document extends BaseController
             'link' => $this->link,
             'data' => $this->model->select('doc.*, doc_name')->findAll()
         ];
+
+
 
         return view($this->view . '/index', $data);
     }
@@ -50,7 +52,6 @@ class Document extends BaseController
      */
     public function new()
     {
-
         $data = [
             'title' => $this->title,
             'link' => $this->link,
@@ -67,6 +68,7 @@ class Document extends BaseController
      */
     public function create()
     {
+        setAlert('success', 'Success', 'Add Success XYZ');
         $rules = [
             'docname' => 'required|min_length[8]',
             'docdescription' => 'required|min_length[12]',
@@ -92,8 +94,9 @@ class Document extends BaseController
         if ($dataBerkas->getError() != 4) {
 
             $fileName = $dataBerkas->getName();
+            $fileName = sha1(date("Y-m-d H:i:s"));
             $fileExt = $dataBerkas->getExtension();
-            $fileName = $fileName + $fileExt;
+            $fileName = $fileName . '.' . $fileExt;
 
             $dataBerkas->move($this->dir, $fileName);
 
@@ -186,10 +189,13 @@ class Document extends BaseController
         if ($dataBerkas->getError() != 4) {
 
             $fileName = $dataBerkas->getName();
+            $fileName = sha1(date("Y-m-d H:i:s"));
+            $fileExt = $dataBerkas->getExtension();
+            $fileName = $fileName . '.' . $fileExt;
 
             $dataBerkas->move($this->dir, $fileName);
 
-            $data['image'] = $fileName;
+            $data['xdoc'] = $fileName;
 
             if ($result['image'] != 'user.png') {
                 @unlink($this->dir . '/' . $result['image']);
@@ -312,6 +318,9 @@ class Document extends BaseController
 
         if ($dataBerkas->getError() != 4) {
             $fileName = $dataBerkas->getName();
+            $fileName = sha1(date("Y-m-d H:i:s"));
+            $fileExt = $dataBerkas->getExtension();
+            $fileName = $fileName . '.' . $fileExt;
 
             if ($dataUser['image'] != 'user.png') {
                 @unlink($this->dir . '/' . $dataUser['image']);
