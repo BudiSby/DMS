@@ -22,10 +22,57 @@ class Document extends BaseController
 
     public function index()
     {
+        $listperpage = 5;
+        $doc_name_selected = "";
+        $description_selected = "";
+        $keyword_use = "";
+        $keyword =  "";
+        if (($this->request->getVar('findby')) == null) {
+            $findby =  "nodoc > ";
+            $keyword_use =  0;
+        } else {
+            $findby =  $this->request->getVar('findby');
+            $findby = $findby . ' like ';
+            if (($this->request->getVar('keyword')) == null) {
+                $keyword =  "%";
+            } else {
+                $keyword =  $this->request->getVar('keyword');
+            }
+
+            if (($this->request->getVar('findby')) == "doc_name") {
+                $doc_name_selected = "selected='selected'";
+                $description_selected = "";
+            } else {
+                $doc_name_selected = "";
+                $description_selected = "selected='selected'";
+            }
+        }
+        if ($keyword_use ==  "") {
+            $keyword_use = '%' . $keyword . '%';
+        }
+
+        if (($this->request->getVar('page')) == null) {
+            $pagex = 1;
+        } else {
+
+            $pagex = $this->request->getVar('page');
+        }
+
         $data = [
             'title' => $this->title,
             'link' => $this->link,
-            'data' => $this->model->select('doc.*, doc_name')->findAll()
+            //'data' => $this->model->select('doc.*, doc_name')->findAll()
+
+            'page' => $pagex,
+            //'data' => $this->model->select('*')->where('nodoc >', '0')->paginate($listperpage),
+            'data' => $this->model->select('*')->where($findby, $keyword_use)->paginate($listperpage),
+            'pager' => $this->model->pager,
+            'listperpage' => $listperpage,
+
+            'findby' => $findby,
+            'keyword' => $keyword,
+            'doc_name_selected' => $doc_name_selected,
+            'description_selected' => $description_selected
         ];
 
         return view($this->view . '/index', $data);

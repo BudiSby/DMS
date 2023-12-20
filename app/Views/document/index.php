@@ -27,6 +27,21 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
             <div class="col-12">
+                <form action='<?= base_url($link); ?>' method='get' enctype='multipart/form-data'>
+                    <div class="form-actions no-color">
+                        <p>
+                            <label for="findby">Find by</label>
+                            <select name="findby" id="findby">
+                                <option value="doc_name" <?= $doc_name_selected; ?>>Doc Name</option>
+                                <option value="description" <?= $description_selected; ?>>Description</option>
+                            </select>
+                            <label for="keyword"> : </label>
+                            <input type="text" class="input_filter" id="keyword" name="keyword" value="<?= $keyword; ?>" />
+                            <button class="btn btn-primary btn-sm mb-2" type="submit">Search</button> |
+                            <a href='<?= base_url($link); ?>'>Back to full List</a>
+                        </p>
+                    </div>
+                </form>
                 <a href="<?= base_url($link . '/new'); ?>" class="btn btn-primary btn-sm mb-2">New Document</a>
                 <div class="card">
                     <div class="card-header">
@@ -49,7 +64,7 @@
                                 <?php $a = 1;
                                 foreach ($data as $d) : ?>
                                     <tr>
-                                        <td><?= $a++; ?></td>
+                                        <td><?= ($a++ + ($listperpage  * ($page - 1))) ?></td>
                                         <td><?= $d['doc_name']; ?></td>
                                         <td><?= $d['description']; ?></td>
                                         <td><?= $d['xdoc1_name']; ?></td>
@@ -68,12 +83,11 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                        <?= $pager->links('default', 'pagination'); ?>
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
 </section>
 <?= $this->endSection('content') ?>
