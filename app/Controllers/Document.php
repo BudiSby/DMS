@@ -28,8 +28,6 @@ class Document extends BaseController
             'data' => $this->model->select('doc.*, doc_name')->findAll()
         ];
 
-
-
         return view($this->view . '/index', $data);
     }
 
@@ -63,15 +61,13 @@ class Document extends BaseController
      *
      * @return mixed
      */
+
     public function create()
     {
-
         $rules = [
-            'docname' => 'required|min_length[8]',
-            'docdescription' => 'required|min_length[12]',
+            'doc_name' => 'required|min_length[8]',
+            'description' => 'required|min_length[12]',
         ];
-
-        $dataBerkas = $this->request->getFile('file');
 
         $input = $this->request->getVar();
 
@@ -80,20 +76,25 @@ class Document extends BaseController
         }
 
         $data = [
-            'docname' => htmlspecialchars($this->request->getVar('docname')),
-            'docdescription' => htmlspecialchars($this->request->getVar('docdescription')),
+            'doc_name' => htmlspecialchars($this->request->getVar('doc_name')),
+            'description' => htmlspecialchars($this->request->getVar('description')),
         ];
 
+        $dataBerkas = $this->request->getFile('xdoc');
         if ($dataBerkas->getError() != 4) {
 
             $fileName = $dataBerkas->getName();
-            $fileName = sha1(date("Y-m-d H:i:s"));
             $fileExt = $dataBerkas->getExtension();
+
+            $data['xdoc1_name'] = $fileName . '.' . $fileExt;
+
+
+            $fileName = sha1(date("Y-m-d H:i:s"));
             $fileName = $fileName . '.' . $fileExt;
 
             $dataBerkas->move($this->dir, $fileName);
 
-            $data['xdoc'] = $fileName;
+            $data['xdoc1'] = $fileName;
         }
 
         $res = $this->model->save($data);
@@ -113,8 +114,6 @@ class Document extends BaseController
      */
     public function edit($id = null)
     {
-        setAlert('success', 'Success', 'Add Success EDIT' . $id);
-
         $result = $this->model->find($id);
         if (!$result) {
             setAlert('warning', 'Warning', 'NOT VALID');
@@ -143,29 +142,21 @@ class Document extends BaseController
             return redirect()->to($this->link);
         }
 
-        $rules = [
-            'name' => 'required',
-        ];
-
         $input = $this->request->getVar();
 
-        if ($input['email'] != $result['email']) {
-            $rules['email'] = 'required|valid_email|is_unique[users.email]';
+        if ($input['doc_name'] != $result['doc_name']) {
+            $rules['doc_name'] = 'required|min_length[8]';
         }
 
-        if ($input['username'] != $result['username']) {
-            $rules['username'] = 'required|is_unique[users.username]';
+        if ($input['description'] != '') {
+            $rules['description'] = 'required|min_length[12]';
         }
 
-        if ($input['password'] != '') {
-            $rules['password'] = 'required|min_length[8]';
-        }
+        $dataBerkas = $this->request->getFile('xdoc');
 
-        $dataBerkas = $this->request->getFile('image');
-
-        if ($dataBerkas->getError() != 4) {
-            $rules['image'] = 'uploaded[image]|max_size[image,2048]|mime_in[image,image/png,image/jpeg]|ext_in[image,png,jpg,gif]|is_image[image]';
-        }
+        //if ($dataBerkas->getError() != 4) {
+        //    $rules['xdoc'] = 'uploaded[image]|max_size[image,2048]|mime_in[image,image/png,image/jpeg]|ext_in[image,png,jpg,gif]|is_image[image]';
+        //}
 
 
         if (!$this->validateData($input, $rules)) {
@@ -173,26 +164,27 @@ class Document extends BaseController
         }
 
         $data = [
-            'name' => htmlspecialchars($this->request->getVar('name')),
-            'email' => htmlspecialchars($this->request->getVar('email')),
-            'username' => htmlspecialchars($this->request->getVar('username')),
-            'role_id' => htmlspecialchars($this->request->getVar('role_id')),
-            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+            'doc_name' => htmlspecialchars($this->request->getVar('doc_name')),
+            'description' => htmlspecialchars($this->request->getVar('description')),
         ];
 
         if ($dataBerkas->getError() != 4) {
 
             $fileName = $dataBerkas->getName();
-            $fileName = sha1(date("Y-m-d H:i:s"));
             $fileExt = $dataBerkas->getExtension();
+
+            $data['xdoc1_name'] = $fileName . '.' . $fileExt;
+
+
+            $fileName = sha1(date("Y-m-d H:i:s"));
             $fileName = $fileName . '.' . $fileExt;
 
             $dataBerkas->move($this->dir, $fileName);
 
-            $data['xdoc'] = $fileName;
+            $data['xdoc1'] = $fileName;
 
-            if ($result['image'] != 'user.png') {
-                @unlink($this->dir . '/' . $result['image']);
+            if ($result['xdoc1'] != 'user.png') {
+                @unlink($this->dir . '/' . $result['xdoc1']);
             }
         }
 
@@ -219,8 +211,8 @@ class Document extends BaseController
             return redirect()->to($this->link);
         }
 
-        if ($result['image'] != 'user.png') {
-            @unlink($this->dir . '/' . $result['image']);
+        if ($result['xdoc1'] != 'user.png') {
+            @unlink($this->dir . '/' . $result['xdoc1']);
         }
 
         $res = $this->model->delete($id);

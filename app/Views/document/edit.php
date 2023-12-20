@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Edit <?= $title; ?></h1>
+                <h1 class="m-0">Edit / Detail <?= $title; ?></h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -37,8 +37,8 @@
                             <input type='hidden' name='_method' value='PUT' />
                             <!-- GET, POST, PUT, PATCH, DELETE-->
                             <div class="form-group">
-                                <label for="docname">Doc Name</label>
-                                <input type="text" class="form-control <?= ($error = validation_show_error('docname')) ? 'border-danger' : ''; ?>" id="docname" name="docname" placeholder="Docname" value="<?= $data['docname']; ?>">
+                                <label for="doc_name">Doc Name</label>
+                                <input type="text" class="form-control <?= ($error = validation_show_error('doc_name')) ? 'border-danger' : ''; ?>" id="doc_name" name="doc_name" placeholder="Docname" value="<?= $data['doc_name']; ?>">
                             </div>
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
 
@@ -50,11 +50,12 @@
 
                             <div class="form-group">
                                 <label for="xdoc">Doc File</label>
-                                <div id="docfile">
-                                    <img class="rounded-circle img-thumbnail d-block mb-2" width="120" src="<?= base_url(); ?>public/assets/uploads/documents/<?= $data['xdoc']; ?>" alt="">
-
+                                <div id="xdoc">
+                                    <a href="<?= base_url(); ?>public/assets/uploads/documents/<?= $data['xdoc1']; ?>" target="xdoclink">
+                                        <label for="xdoclink"><?= $data['xdoc1_name']; ?></label>
+                                    </a>
                                 </div>
-                                <input type="file" class="form-control <?= ($error = validation_show_error('image')) ? 'border-danger' : ''; ?>" id="image" name="image">
+                                <input type="file" class="form-control <?= ($error = validation_show_error('file')) ? 'border-danger' : ''; ?>" id="xdoc" name="xdoc">
                             </div>
 
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>

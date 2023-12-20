@@ -36,21 +36,22 @@
                         <form action="<?= base_url($link); ?>" method="post" enctype="multipart/form-data">
                             <?= csrf_field(); ?>
                             <div class="form-group">
-                                <label for="docname">Doc Name</label>
-                                <input type="text" class="form-control <?= ($error = validation_show_error('docname')) ? 'border-danger' : ''; ?>" id="docname" name="docname" placeholder="Document Name" value="<?= old('docname'); ?>">
+                                <label for="doc_name">Doc Name</label>
+                                <input type="text" class="form-control <?= ($error = validation_show_error('doc_name')) ? 'border-danger' : ''; ?>" id="doc_name" name="doc_name" placeholder="Document Name" value="<?= old('doc_name'); ?>">
                             </div>
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
 
                             <div class="form-group">
-                                <label for="docdescription">Description</label>
-                                <input type="text" class="form-control <?= ($error = validation_show_error('docdescription')) ? 'border-danger' : ''; ?>" id="docdescription" name="docdescription" placeholder="Document Description">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control <?= ($error = validation_show_error('description')) ? 'border-danger' : ''; ?>" id="description" name="description" placeholder="Document Description">
                             </div>
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
 
                             <div class="form-group">
-                                <label for="docfile">Doc File</label>
-                                <input type="file" class="form-control <?= ($error = validation_show_error('image')) ? 'border-danger' : ''; ?>" id="docfile" name="docfile">
+                                <label for="xdoc">Doc File</label>
+                                <input type="file" class="form-control <?= ($error = validation_show_error('file')) ? 'border-danger' : ''; ?>" id="xdoc" name="xdoc">
                             </div>
+
 
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
 

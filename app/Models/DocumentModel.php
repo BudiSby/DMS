@@ -16,8 +16,10 @@ class DocumentModel extends BaseModel
     protected $allowedFields    = [
         'doc_name',
         'description',
-        'xdoc',
+        'xdoc1_name',
+        'xdoc1',
         'created_at',
+        'updated_at',
     ];
 
     // Dates

@@ -39,8 +39,9 @@
                                     <th>No</th>
                                     <th>Doc Name</th>
                                     <th>Description</th>
-                                    <th>Doc File</th>
+                                    <th>Main Doc File</th>
                                     <th>Created At</th>
+                                    <th>Update At</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -51,10 +52,11 @@
                                         <td><?= $a++; ?></td>
                                         <td><?= $d['doc_name']; ?></td>
                                         <td><?= $d['description']; ?></td>
-                                        <td><?= $d['xdoc']; ?></td>
+                                        <td><?= $d['xdoc1_name']; ?></td>
                                         <td><?= $d['created_at']; ?></td>
+                                        <td><?= $d['updated_at']; ?></td>
                                         <td>
-                                            <a class="btn btn-warning btn-sm mb-2" href="<?= base_url($link . '/' . $d['nodoc'] . '/edit'); ?>">Edit</a>
+                                            <a class="btn btn-warning btn-sm mb-2" href="<?= base_url($link . '/' . $d['nodoc'] . '/edit'); ?>">Edit / Detail</a>
                                             <form class="d-inline" action='<?= base_url($link . '/' . $d['nodoc']); ?>' method='post' enctype='multipart/form-data'>
                                                 <?= csrf_field(); ?>
                                                 <input type='hidden' name='_method' value='DELETE' />
