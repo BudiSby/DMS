@@ -22,6 +22,7 @@ $routes->group('', ['filter' => '\App\Filters\AuthFilter'], function ($routes) {
   //$routes->get('document/active/(:num)/(:num)', 'document::active/$1/$2');
   $routes->resource('document', ['controller' => '\App\Controllers\document']);
 
+  $routes->resource('division', ['controller' => '\App\Controllers\division']);
 
   $routes->get('profile', 'Users::profile');
   $routes->get('profile/edit', 'Users::editProfile');

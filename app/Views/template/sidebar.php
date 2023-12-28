@@ -52,19 +52,6 @@ $data_user = getProfile();
           </a>
         </li>
 
-
-        <?php if (session()->get('role_id') == 1) : ?>
-
-          <li class="nav-item">
-            <a href="<?= base_url('users'); ?>" class="nav-link <?= ($segment == 'users') ? 'active' : ''; ?>">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Users Management
-              </p>
-            </a>
-          </li>
-
-        <?php endif; ?>
         <li class="nav-item  <?= ($segment == 'profile' || $segment == 'change-password') ? 'menu-open' : ''; ?>">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-user"></i>
@@ -76,7 +63,7 @@ $data_user = getProfile();
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="<?= base_url('profile'); ?>" class="nav-link <?= ($segment == 'profile') ? 'active' : ''; ?>">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-chevron-circle-right nav-icon"></i>
                 <p>
                   My Profile
                 </p>
@@ -84,7 +71,7 @@ $data_user = getProfile();
             </li>
             <li class="nav-item">
               <a href="<?= base_url('change-password'); ?>" class="nav-link <?= ($segment == 'change-password') ? 'active' : ''; ?>">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-chevron-circle-right nav-icon"></i>
                 <p>
                   Change Password
                 </p>
@@ -92,6 +79,44 @@ $data_user = getProfile();
             </li>
           </ul>
         </li>
+
+
+        <?php if (session()->get('role_id') == 1) : ?>
+          <hr color="gray" />
+
+          <li class="nav-item">
+            <a href="<?= base_url('users'); ?>" class="nav-link <?= ($segment == 'users') ? 'active' : ''; ?>">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Users Management
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tools"></i>
+              <p>
+                Doc Management
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url('division'); ?>" class="nav-link <?= ($segment == 'mst_division') ? 'active' : ''; ?>">
+                  <i class="fas fa-chevron-circle-right nav-icon"></i>
+                  <p>
+                    Division
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <hr color="gray" />
+
+        <?php endif; ?>
+
         <li class="nav-item">
           <a href="<?= base_url(); ?>auth/logout" class="nav-link">
             <i class="nav-icon fas fa-sign-out-alt"></i>
