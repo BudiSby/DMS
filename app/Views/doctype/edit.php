@@ -11,7 +11,8 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?= base_url(); ?>">Home</a></li>
-                    <li class="breadcrumb-item">Maintain <?= $title; ?></li>
+                    <li class="breadcrumb-item">Doc Type Management</li>
+                    <li class="breadcrumb-item"><?= $title; ?></li>
                     <li class="breadcrumb-item active">Edit</li>
                 </ol>
             </div>
@@ -32,29 +33,13 @@
                         Edit <?= $title; ?>
                     </div>
                     <div class="card-body">
-                        <form action="<?= base_url($link . '/' . $data['nodoc']); ?>" method="post" enctype="multipart/form-data">
+                        <form action="<?= base_url($link . '/' . $data['nodoctype']); ?>" method="post" enctype="multipart/form-data">
                             <?= csrf_field(); ?>
                             <input type='hidden' name='_method' value='PUT' />
                             <!-- GET, POST, PUT, PATCH, DELETE-->
-
                             <div class="form-group">
-                                <label for="nodiv">Division</label>
-                                <select name="nodiv" id="nodiv" class="form-control <?= ($error = validation_show_error('nodiv')) ? 'border-danger' : ''; ?>">
-                                    <?php foreach ($division as $d) : ?>
-                                        <?php if ($d['nodiv'] == $data['nodiv']) : ?>
-                                            <option selected value="<?= $d['nodiv']; ?>"><?= $d['div_name']; ?></option>
-                                        <?php else : ?>
-                                            <option value="<?= $d['nodiv']; ?>"><?= $d['div_name']; ?></option>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
-
-
-                            <div class="form-group">
-                                <label for="doc_name">Doc Name</label>
-                                <input type="text" class="form-control <?= ($error = validation_show_error('doc_name')) ? 'border-danger' : ''; ?>" id="doc_name" name="doc_name" placeholder="Docname" value="<?= $data['doc_name']; ?>">
+                                <label for="doctype_name">Doc Type Name</label>
+                                <input type="text" class="form-control <?= ($error = validation_show_error('doctype_name')) ? 'border-danger' : ''; ?>" id="doctype_name" name="doctype_name" placeholder="DocTypeName" value="<?= $data['doctype_name']; ?>">
                             </div>
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
 
@@ -64,17 +49,6 @@
                             </div>
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
 
-                            <div class="form-group">
-                                <label for="xdoc">Doc File</label>
-                                <div id="xdoc">
-                                    <a href="<?= base_url(); ?>public/assets/uploads/documents/<?= $data['xdoc1']; ?>" target="xdoclink">
-                                        <label for="xdoclink"><?= $data['xdoc1_name']; ?></label>
-                                    </a>
-                                </div>
-                                <input type="file" class="form-control <?= ($error = validation_show_error('file')) ? 'border-danger' : ''; ?>" id="xdoc" name="xdoc">
-                            </div>
-
-                            <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <a href="<?= base_url($link); ?>" class="btn btn-secondary">Batal</a>
                         </form>

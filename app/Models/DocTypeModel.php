@@ -4,23 +4,18 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 
-class DocumentModel extends BaseModel
+class DocTypeModel extends BaseModel
 {
     // protected $DBGroup          = 'default';
-    protected $table            = 'doc';
-    protected $table2           = 'division';
-    protected $jointable1table2 = '';
-    protected $primaryKey       = 'nodoc';
+    protected $table            = 'doctype';
+    protected $primaryKey       = 'nodoctype';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'nodiv',
-        'doc_name',
+        'doctype_name',
         'description',
-        'xdoc1_name',
-        'xdoc1',
         'created_at',
         'updated_at',
     ];
@@ -51,9 +46,4 @@ class DocumentModel extends BaseModel
 
     public $logName = false;
     public $logId = true;
-
-    public function getDivision()
-    {
-        return $this->db->table('division')->get()->getResultArray();
-    }
 }

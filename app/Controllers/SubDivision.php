@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class Document extends BaseController
+class SubDivision extends BaseController
 {
     /**
      * Return an array of resource objects, themselves in array format
@@ -11,52 +11,48 @@ class Document extends BaseController
      */
 
     private $model;
-    private $link = 'document';
-    private $view = 'document';
-    private $title = 'Document';
-    private $dir = 'public/assets/uploads/documents';
+    private $link = 'subdivision';
+    private $view = 'subdivision';
+    private $title = 'Sub - Division';
+
     public function __construct()
     {
-        $this->model = new \App\Models\DocumentModel();
+        $this->model = new \App\Models\SubDivisionModel();
     }
 
     public function index()
     {
         $listperpage = 5;
-        $doc_name_selected = "";
+        $div_name_selected = "";
         $description_selected = "";
-        $division_selected = "";
+        $subdiv_name_selected = "";
         $keyword_use = "";
         $keyword =  "";
         if (($this->request->getVar('findby')) == null) {
-            $findby =  "nodoc > ";
+            $findby =  "nosubdiv > ";
             $keyword_use =  0;
         } else {
             $findby =  $this->request->getVar('findby');
-            //$findby = $findby . ' like ';
+            $findby = $findby . ' like ';
             if (($this->request->getVar('keyword')) == null) {
                 $keyword =  "%";
             } else {
                 $keyword =  $this->request->getVar('keyword');
             }
 
-            if (($this->request->getVar('findby')) == "doc_name") {
-                $doc_name_selected = "selected='selected'";
+            if (($this->request->getVar('findby')) == "div_name") {
+                $div_name_selected = "selected='selected'";
                 $description_selected = "";
-                $division_selected = "";
+                $subdiv_name_selected = "";
             } elseif (($this->request->getVar('findby')) == "description") {
-                $findby = 'doc.' . $findby;
-                $doc_name_selected = "";
+                $div_name_selected = "";
                 $description_selected = "selected='selected'";
-                $division_selected = "";
-            } elseif (($this->request->getVar('findby')) == "division") {
-                $findby = 'division.div_name';
-                $doc_name_selected = "";
+                $subdiv_name_selected = "";
+            } {
+                $div_name_selected = "";
                 $description_selected = "";
-                $division_selected = "selected='selected'";
+                $subdiv_name_selected = "selected='selected'";
             }
-
-            $findby = $findby . ' like ';
         }
         if ($keyword_use ==  "") {
             $keyword_use = '%' . $keyword . '%';
@@ -72,21 +68,19 @@ class Document extends BaseController
         $data = [
             'title' => $this->title,
             'link' => $this->link,
-            //'data' => $this->model->select('doc.*, doc_name')->findAll()
 
             'page' => $pagex,
-            //'data' => $this->model->select('*')->where('nodoc >', '0')->paginate($listperpage),
-            'data' => $this->model->select('doc.*,div_name')->join('division', 'doc.nodiv = division.nodiv')->where($findby, $keyword_use)->paginate($listperpage),
-            //'data' => $this->model->getdata_document()->paginate($listperpage),
-
+            //'data' => $this->model->select('*')->where($findby, $keyword_use)->paginate($listperpage),
+            //'data' => $this->model->select('doc.*,div_name')->join('division', 'doc.nodiv = division.nodiv')->where($findby, $keyword_use)->paginate($listperpage),
+            'data' => $this->model->select('sub_division.*,div_name,description')->join('division', 'sub_division.nodiv = division.nodiv')->where($findby, $keyword_use)->paginate($listperpage),
             'pager' => $this->model->pager,
             'listperpage' => $listperpage,
 
             'findby' => $findby,
             'keyword' => $keyword,
-            'doc_name_selected' => $doc_name_selected,
+            'div_name_selected' => $div_name_selected,
             'description_selected' => $description_selected,
-            'division_selected' => $division_selected
+            'subdiv_name_selected' => $subdiv_name_selected
         ];
 
         return view($this->view . '/index', $data);
@@ -127,8 +121,7 @@ class Document extends BaseController
     public function create()
     {
         $rules = [
-            'doc_name' => 'required|min_length[8]',
-            'description' => 'required|min_length[12]',
+            'subdiv_name' => 'required|min_length[5]',
         ];
 
         $input = $this->request->getVar();
@@ -138,27 +131,9 @@ class Document extends BaseController
         }
 
         $data = [
-            'doc_name' => htmlspecialchars($this->request->getVar('doc_name')),
-            'description' => htmlspecialchars($this->request->getVar('description')),
+            'subdiv_name' => htmlspecialchars($this->request->getVar('subdiv_name')),
             'nodiv' => htmlspecialchars($this->request->getVar('nodiv')),
         ];
-
-        $dataBerkas = $this->request->getFile('xdoc');
-        if ($dataBerkas->getError() != 4) {
-
-            $fileName = $dataBerkas->getName();
-            $fileExt = $dataBerkas->getExtension();
-
-            $data['xdoc1_name'] = $fileName . '.' . $fileExt;
-
-
-            $fileName = sha1(date("Y-m-d H:i:s"));
-            $fileName = $fileName . '.' . $fileExt;
-
-            $dataBerkas->move($this->dir, $fileName);
-
-            $data['xdoc1'] = $fileName;
-        }
 
         $res = $this->model->save($data);
         if ($res) {
@@ -206,52 +181,24 @@ class Document extends BaseController
             return redirect()->to($this->link);
         }
 
+        $rules = [
+            'subdiv_name' => 'required',
+        ];
+
         $input = $this->request->getVar();
 
-        if ($input['doc_name'] != $result['doc_name']) {
-            $rules['doc_name'] = 'required|min_length[8]';
+        if ($input['subdiv_name'] != $result['subdiv_name']) {
+            $rules['subdiv_name'] = 'required|min_length[5]';
         }
-
-        if ($input['description'] != '') {
-            $rules['description'] = 'required|min_length[12]';
-        }
-
-        $dataBerkas = $this->request->getFile('xdoc');
-
-        //if ($dataBerkas->getError() != 4) {
-        //    $rules['xdoc'] = 'uploaded[image]|max_size[image,2048]|mime_in[image,image/png,image/jpeg]|ext_in[image,png,jpg,gif]|is_image[image]';
-        //}
-
 
         if (!$this->validateData($input, $rules)) {
             return redirect()->back()->withInput();
         }
 
         $data = [
-            'doc_name' => htmlspecialchars($this->request->getVar('doc_name')),
-            'description' => htmlspecialchars($this->request->getVar('description')),
+            'subdiv_name' => htmlspecialchars($this->request->getVar('subdiv_name')),
             'nodiv' => htmlspecialchars($this->request->getVar('nodiv')),
         ];
-
-        if ($dataBerkas->getError() != 4) {
-
-            $fileName = $dataBerkas->getName();
-            $fileExt = $dataBerkas->getExtension();
-
-            $data['xdoc1_name'] = $fileName . '.' . $fileExt;
-
-
-            $fileName = sha1(date("Y-m-d H:i:s"));
-            $fileName = $fileName . '.' . $fileExt;
-
-            $dataBerkas->move($this->dir, $fileName);
-
-            $data['xdoc1'] = $fileName;
-
-            if ($result['xdoc1'] != 'user.png') {
-                @unlink($this->dir . '/' . $result['xdoc1']);
-            }
-        }
 
         $res = $this->model->update($id, $data);
         if ($res) {
@@ -276,9 +223,6 @@ class Document extends BaseController
             return redirect()->to($this->link);
         }
 
-        if ($result['xdoc1'] != 'user.png') {
-            @unlink($this->dir . '/' . $result['xdoc1']);
-        }
 
         $res = $this->model->delete($id);
         if ($res) {

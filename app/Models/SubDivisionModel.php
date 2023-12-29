@@ -4,23 +4,18 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 
-class DocumentModel extends BaseModel
+class SubDivisionModel extends BaseModel
 {
     // protected $DBGroup          = 'default';
-    protected $table            = 'doc';
-    protected $table2           = 'division';
-    protected $jointable1table2 = '';
-    protected $primaryKey       = 'nodoc';
+    protected $table            = 'sub_division';
+    protected $primaryKey       = 'nosubdiv';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
         'nodiv',
-        'doc_name',
-        'description',
-        'xdoc1_name',
-        'xdoc1',
+        'subdiv_name',
         'created_at',
         'updated_at',
     ];

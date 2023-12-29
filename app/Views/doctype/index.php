@@ -6,12 +6,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Digital <?= $title; ?></h1>
+                <h1 class="m-0">Master <?= $title; ?></h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?= base_url(); ?>">Home</a></li>
-                    <li class="breadcrumb-item">Digital <?= $title; ?></li>
+                    <li class="breadcrumb-item">Doc Type Management</li>
+                    <li class="breadcrumb-item"><?= $title; ?></li>
                 </ol>
             </div>
             <!-- /.col -->
@@ -32,9 +33,8 @@
                         <p>
                             <label for="findby">Find by</label>
                             <select name="findby" id="findby">
-                                <option value="doc_name" <?= $doc_name_selected; ?>>Doc Name</option>
+                                <option value="doctype_name" <?= $doctype_name_selected; ?>>Doc Type</option>
                                 <option value="description" <?= $description_selected; ?>>Description</option>
-                                <option value="division" <?= $division_selected; ?>>Division</option>
                             </select>
                             <label for="keyword"> : </label>
                             <input type="text" class="input_filter" id="keyword" name="keyword" value="<?= $keyword; ?>" />
@@ -43,7 +43,7 @@
                         </p>
                     </div>
                 </form>
-                <a href="<?= base_url($link . '/new'); ?>" class="btn btn-primary btn-sm mb-2">New Document</a>
+                <a href="<?= base_url($link . '/new'); ?>" class="btn btn-primary btn-sm mb-2">New <?= $title; ?></a>
                 <div class="card">
                     <div class="card-header">
                         Maintain <?= $title; ?>
@@ -53,10 +53,8 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Div Name</th>
-                                    <th>Doc Name</th>
+                                    <th>Doc Type</th>
                                     <th>Description</th>
-                                    <th>Main Doc File</th>
                                     <th>Created At</th>
                                     <th>Update At</th>
                                     <th>Action</th>
@@ -67,15 +65,13 @@
                                 foreach ($data as $d) : ?>
                                     <tr>
                                         <td><?= ($a++ + ($listperpage  * ($page - 1))) ?></td>
-                                        <td><?= $d['div_name']; ?></td>
-                                        <td><?= $d['doc_name']; ?></td>
+                                        <td><?= $d['doctype_name']; ?></td>
                                         <td><?= $d['description']; ?></td>
-                                        <td><?= $d['xdoc1_name']; ?></td>
                                         <td><?= $d['created_at']; ?></td>
                                         <td><?= $d['updated_at']; ?></td>
                                         <td>
-                                            <a class="btn btn-warning btn-sm mb-2" href="<?= base_url($link . '/' . $d['nodoc'] . '/edit'); ?>">Edit / Detail</a>
-                                            <form class="d-inline" action='<?= base_url($link . '/' . $d['nodoc']); ?>' method='post' enctype='multipart/form-data'>
+                                            <a class="btn btn-warning btn-sm mb-2" href="<?= base_url($link . '/' . $d['nodoctype'] . '/edit'); ?>">Edit / Detail</a>
+                                            <form class="d-inline" action='<?= base_url($link . '/' . $d['nodoctype']); ?>' method='post' enctype='multipart/form-data'>
                                                 <?= csrf_field(); ?>
                                                 <input type='hidden' name='_method' value='DELETE' />
                                                 <!-- GET, POST, PUT, PATCH, DELETE-->

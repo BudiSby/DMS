@@ -24,6 +24,9 @@ $routes->group('', ['filter' => '\App\Filters\AuthFilter'], function ($routes) {
 
   $routes->resource('division', ['controller' => '\App\Controllers\division']);
 
+  $routes->resource('subdivision', ['controller' => '\App\Controllers\subdivision']);
+  $routes->resource('doctype', ['controller' => '\App\Controllers\doctype']);
+
   $routes->get('profile', 'Users::profile');
   $routes->get('profile/edit', 'Users::editProfile');
   $routes->put('profile', 'Users::updateProfile');
