@@ -51,6 +51,34 @@
                             </div>
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
 
+                            <div class="form-group">
+                                <label for="nodiv">Sub Division</label>
+                                <select name="nosubdiv" id="nosubdiv" class="form-control <?= ($error = validation_show_error('nosubdiv')) ? 'border-danger' : ''; ?>">
+                                    <?php foreach ($subdivision as $d) : ?>
+                                        <?php if ($d['nosubdiv'] == $data['nosubdiv']) : ?>
+                                            <option selected value="<?= $d['nosubdiv']; ?>"><?= $d['subdiv_name']; ?></option>
+                                        <?php else : ?>
+                                            <option value="<?= $d['nosubdiv']; ?>"><?= $d['subdiv_name']; ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
+
+                            <div class="form-group">
+                                <label for="nodoctype">Doc Type</label>
+                                <select name="nodoctype" id="nodoctype" class="form-control <?= ($error = validation_show_error('nodoctype')) ? 'border-danger' : ''; ?>">
+                                    <?php foreach ($doctype as $d) : ?>
+                                        <?php if ($d['nodoctype'] == $data['nodoctype']) : ?>
+                                            <option selected value="<?= $d['nodoctype']; ?>"><?= $d['doctype_name']; ?></option>
+                                        <?php else : ?>
+                                            <option value="<?= $d['nodoctype']; ?>"><?= $d['doctype_name']; ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
+
 
                             <div class="form-group">
                                 <label for="doc_name">Doc Name</label>

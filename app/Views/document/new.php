@@ -47,6 +47,27 @@
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
 
                             <div class="form-group">
+                                <label for="nodiv">Sub Division</label>
+                                <select name="nosubdiv" id="nosubdiv" class="form-control <?= ($error = validation_show_error('nosubdiv')) ? 'border-danger' : ''; ?>">
+                                    <?php foreach ($subdivision as $d) : ?>
+                                        <option value="<?= $d['nosubdiv']; ?>"><?= $d['subdiv_name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
+
+                            <div class="form-group">
+                                <label for="nodoctype">Doc Type</label>
+                                <select name="nodoctype" id="nodoctype" class="form-control <?= ($error = validation_show_error('nodoctype')) ? 'border-danger' : ''; ?>">
+                                    <?php foreach ($doctype as $d) : ?>
+                                        <option value="<?= $d['nodoctype']; ?>"><?= $d['doctype_name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
+
+
+                            <div class="form-group">
                                 <label for="doc_name">Doc Name</label>
                                 <input type="text" class="form-control <?= ($error = validation_show_error('doc_name')) ? 'border-danger' : ''; ?>" id="doc_name" name="doc_name" placeholder="Document Name" value="<?= old('doc_name'); ?>">
                             </div>

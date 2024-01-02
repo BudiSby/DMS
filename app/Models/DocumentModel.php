@@ -17,7 +17,9 @@ class DocumentModel extends BaseModel
     protected $protectFields    = true;
     protected $allowedFields    = [
         'nodiv',
+        'nosubdiv',
         'doc_name',
+        'nodoctype',
         'description',
         'xdoc1_name',
         'xdoc1',
@@ -55,5 +57,15 @@ class DocumentModel extends BaseModel
     public function getDivision()
     {
         return $this->db->table('division')->get()->getResultArray();
+    }
+
+    public function getSubDivision()
+    {
+        return $this->db->table('sub_division')->get()->getResultArray();
+    }
+
+    public function getDocType()
+    {
+        return $this->db->table('doctype')->get()->getResultArray();
     }
 }

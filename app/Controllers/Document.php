@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\DocumentModel;
+
 class Document extends BaseController
 {
     /**
@@ -76,7 +78,7 @@ class Document extends BaseController
 
             'page' => $pagex,
             //'data' => $this->model->select('*')->where('nodoc >', '0')->paginate($listperpage),
-            'data' => $this->model->select('doc.*,div_name')->join('division', 'doc.nodiv = division.nodiv')->where($findby, $keyword_use)->paginate($listperpage),
+            'data' => $this->model->select('doc.*,div_name,subdiv_name,doctype_name')->join('division', 'doc.nodiv = division.nodiv')->join('sub_division', 'doc.nosubdiv = sub_division.nosubdiv')->join('doctype', 'doc.nodoctype = doctype.nodoctype')->where($findby, $keyword_use)->paginate($listperpage),
             //'data' => $this->model->getdata_document()->paginate($listperpage),
 
             'pager' => $this->model->pager,
@@ -113,6 +115,8 @@ class Document extends BaseController
             'title' => $this->title,
             'link' => $this->link,
             'division' => $this->model->getDivision(),
+            'subdivision' => $this->model->getSubDivision(),
+            'doctype' => $this->model->getDocType(),
         ];
 
         return view($this->view . '/new', $data);
@@ -141,6 +145,8 @@ class Document extends BaseController
             'doc_name' => htmlspecialchars($this->request->getVar('doc_name')),
             'description' => htmlspecialchars($this->request->getVar('description')),
             'nodiv' => htmlspecialchars($this->request->getVar('nodiv')),
+            'nosubdiv' => htmlspecialchars($this->request->getVar('nosubdiv')),
+            'nodoctype' => htmlspecialchars($this->request->getVar('nodoctype')),
         ];
 
         $dataBerkas = $this->request->getFile('xdoc');
@@ -188,6 +194,8 @@ class Document extends BaseController
             'link' => $this->link,
             'data' => $result,
             'division' => $this->model->getDivision(),
+            'subdivision' => $this->model->getSubDivision(),
+            'doctype' => $this->model->getDocType(),
         ];
 
         return view($this->view . '/edit', $data);
@@ -231,6 +239,8 @@ class Document extends BaseController
             'doc_name' => htmlspecialchars($this->request->getVar('doc_name')),
             'description' => htmlspecialchars($this->request->getVar('description')),
             'nodiv' => htmlspecialchars($this->request->getVar('nodiv')),
+            'nosubdiv' => htmlspecialchars($this->request->getVar('nosubdiv')),
+            'nodoctype' => htmlspecialchars($this->request->getVar('nodoctype')),
         ];
 
         if ($dataBerkas->getError() != 4) {

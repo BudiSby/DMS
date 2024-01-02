@@ -53,10 +53,12 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Div Name</th>
+                                    <th>Division</th>
+                                    <th>Sub Division</th>
+                                    <th>Doc Type</th>
                                     <th>Doc Name</th>
                                     <th>Description</th>
-                                    <th>Main Doc File</th>
+                                    <th>Doc File</th>
                                     <th>Created At</th>
                                     <th>Update At</th>
                                     <th>Action</th>
@@ -68,6 +70,8 @@
                                     <tr>
                                         <td><?= ($a++ + ($listperpage  * ($page - 1))) ?></td>
                                         <td><?= $d['div_name']; ?></td>
+                                        <td><?= $d['subdiv_name']; ?></td>
+                                        <td><?= $d['doctype_name']; ?></td>
                                         <td><?= $d['doc_name']; ?></td>
                                         <td><?= $d['description']; ?></td>
                                         <td><?= $d['xdoc1_name']; ?></td>
