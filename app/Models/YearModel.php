@@ -4,26 +4,18 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 
-class DocumentModel extends BaseModel
+class YearModel extends BaseModel
 {
     // protected $DBGroup          = 'default';
-    protected $table            = 'doc';
-    protected $table2           = 'division';
-    protected $jointable1table2 = '';
-    protected $primaryKey       = 'nodoc';
+    protected $table            = 'years';
+    protected $primaryKey       = 'noyear';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'nodiv',
-        'noyear',
-        'nosubdiv',
-        'doc_name',
-        'nodoctype',
+        'year_name',
         'description',
-        'xdoc1_name',
-        'xdoc1',
         'created_at',
         'updated_at',
     ];
@@ -54,24 +46,4 @@ class DocumentModel extends BaseModel
 
     public $logName = false;
     public $logId = true;
-
-    public function getDivision()
-    {
-        return $this->db->table('division')->get()->getResultArray();
-    }
-
-    public function getSubDivision()
-    {
-        return $this->db->table('sub_division')->get()->getResultArray();
-    }
-
-    public function getDocType()
-    {
-        return $this->db->table('doctype')->get()->getResultArray();
-    }
-
-    public function getYear()
-    {
-        return $this->db->table('years')->get()->getResultArray();
-    }
 }

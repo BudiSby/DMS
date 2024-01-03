@@ -58,7 +58,9 @@
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
 
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="<?= base_url($link); ?>" class="btn btn-secondary">Batal</a>
+                            <a href="<?= base_url($link); ?>" class="btn btn-secondary">Cancel</a>
+
+                            <a href="javascript:window.history.go(-1);" class="btn btn-info">Back</a>
                         </form>
                     </div>
                 </div>

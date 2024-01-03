@@ -6,14 +6,14 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Edit / Detail <?= $title; ?></h1>
+                <h1 class="m-0">New <?= $title; ?></h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?= base_url(); ?>">Home</a></li>
-                    <li class="breadcrumb-item">Div Management</li>
+                    <li class="breadcrumb-item">Year Management</li>
                     <li class="breadcrumb-item"><?= $title; ?></li>
-                    <li class="breadcrumb-item active">Edit</li>
+                    <li class="breadcrumb-item active">New</li>
                 </ol>
             </div>
             <!-- /.col -->
@@ -21,6 +21,7 @@
     </div><!-- /.container-fluid -->
 </div>
 <!-- /.content-header -->
+
 
 <!-- Main content -->
 <section class="content">
@@ -30,29 +31,25 @@
             <div class="col-md-5">
                 <div class="card">
                     <div class="card-header">
-                        Edit <?= $title; ?>
+                        New <?= $title; ?>
                     </div>
                     <div class="card-body">
-                        <form action="<?= base_url($link . '/' . $data['nodiv']); ?>" method="post" enctype="multipart/form-data">
+                        <form action="<?= base_url($link); ?>" method="post" enctype="multipart/form-data">
                             <?= csrf_field(); ?>
-                            <input type='hidden' name='_method' value='PUT' />
-                            <!-- GET, POST, PUT, PATCH, DELETE-->
                             <div class="form-group">
-                                <label for="div_name">Div Name</label>
-                                <input type="text" class="form-control <?= ($error = validation_show_error('div_name')) ? 'border-danger' : ''; ?>" id="div_name" name="div_name" placeholder="Divname" value="<?= $data['div_name']; ?>">
+                                <label for="year_name">Year</label>
+                                <input type="text" class="form-control <?= ($error = validation_show_error('year_name')) ? 'border-danger' : ''; ?>" id="year_name" name="year_name" placeholder="Year Name" value="<?= old('year_name'); ?>">
                             </div>
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
 
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <input type="text" class="form-control <?= ($error = validation_show_error('description')) ? 'border-danger' : ''; ?>" id="description" name="description" placeholder="Description" value="<?= $data['description']; ?>">
+                                <input type="text" class="form-control <?= ($error = validation_show_error('description')) ? 'border-danger' : ''; ?>" id="description" name="description" placeholder="Division Description">
                             </div>
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
 
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="<?= base_url($link); ?>" class="btn btn-secondary">Cancel</a>
-
-                            <a href="javascript:window.history.go(-1);" class="btn btn-info">Back</a>
+                            <a href="<?= base_url($link); ?>" class="btn btn-secondary">Batal</a>
                         </form>
                     </div>
                 </div>
