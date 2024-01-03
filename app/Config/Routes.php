@@ -22,6 +22,8 @@ $routes->group('', ['filter' => '\App\Filters\AuthFilter'], function ($routes) {
   //$routes->get('document/active/(:num)/(:num)', 'document::active/$1/$2');
   $routes->resource('document', ['controller' => '\App\Controllers\document']);
 
+  $routes->resource('year', ['controller' => '\App\Controllers\year']);
+
   $routes->resource('division', ['controller' => '\App\Controllers\division']);
 
   $routes->resource('subdivision', ['controller' => '\App\Controllers\subdivision']);

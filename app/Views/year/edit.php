@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?= base_url(); ?>">Home</a></li>
-                    <li class="breadcrumb-item">Div Management</li>
+                    <li class="breadcrumb-item">Year Management</li>
                     <li class="breadcrumb-item"><?= $title; ?></li>
                     <li class="breadcrumb-item active">Edit</li>
                 </ol>
@@ -33,13 +33,13 @@
                         Edit <?= $title; ?>
                     </div>
                     <div class="card-body">
-                        <form action="<?= base_url($link . '/' . $data['nodiv']); ?>" method="post" enctype="multipart/form-data">
+                        <form action="<?= base_url($link . '/' . $data['noyear']); ?>" method="post" enctype="multipart/form-data">
                             <?= csrf_field(); ?>
                             <input type='hidden' name='_method' value='PUT' />
                             <!-- GET, POST, PUT, PATCH, DELETE-->
                             <div class="form-group">
-                                <label for="div_name">Div Name</label>
-                                <input type="text" class="form-control <?= ($error = validation_show_error('div_name')) ? 'border-danger' : ''; ?>" id="div_name" name="div_name" placeholder="Divname" value="<?= $data['div_name']; ?>">
+                                <label for="year_name">Year</label>
+                                <input type="text" class="form-control <?= ($error = validation_show_error('year_name')) ? 'border-danger' : ''; ?>" id="year_name" name="year_name" placeholder="Yearname" value="<?= $data['year_name']; ?>">
                             </div>
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
 

@@ -93,7 +93,7 @@ $data_user = getProfile();
             </a>
           </li>
 
-          <li class="nav-item  <?= ($segment == 'division' || $segment == 'subdivision' || $segment == 'doctype') ? 'menu-open' : ''; ?>">
+          <li class="nav-item  <?= ($segment == 'division' || $segment == 'subdivision' || $segment == 'doctype' || $segment == 'year') ? 'menu-open' : ''; ?>">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tools"></i>
               <p>
@@ -101,6 +101,16 @@ $data_user = getProfile();
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url('year'); ?>" class="nav-link <?= ($segment == 'year') ? 'active' : ''; ?>">
+                  <i class="fas fa-chevron-circle-right nav-icon"></i>
+                  <p>
+                    Year
+                  </p>
+                </a>
+              </li>
+            </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="<?= base_url('division'); ?>" class="nav-link <?= ($segment == 'division') ? 'active' : ''; ?>">
