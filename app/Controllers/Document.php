@@ -157,7 +157,7 @@ class Document extends BaseController
             $fileName = $dataBerkas->getName();
             $fileExt = $dataBerkas->getExtension();
 
-            $data['xdoc1_name'] = $fileName . '.' . $fileExt;
+            $data['xdoc1_name'] = $fileName; //. '.' . $fileExt;
 
 
             $fileName = sha1(date("Y-m-d H:i:s"));
@@ -252,7 +252,7 @@ class Document extends BaseController
             $fileName = $dataBerkas->getName();
             $fileExt = $dataBerkas->getExtension();
 
-            $data['xdoc1_name'] = $fileName . '.' . $fileExt;
+            $data['xdoc1_name'] = $fileName; // . '.' . $fileExt;
 
 
             $fileName = sha1(date("Y-m-d H:i:s"));
