@@ -28,8 +28,20 @@
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
-            <h3>150</h3>
+            <h3>
 
+              <?php
+              $db = db_connect();
+              $query = $db->query('SELECT COUNT(nodoc) AS count_doc FROM doc WHERE 1=1');
+              //you get result as an array in here but fetch your result however you feel to
+              $result = $query->getResultArray();
+
+              foreach ($result as $d) {
+                echo $d['count_doc'];
+              }
+              ?>
+
+            </h3>
             <p>Document Recorded</p>
           </div>
           <div class="icon">
@@ -43,7 +55,20 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>175</h3>
+            <h3>
+
+              <?php
+              $db = db_connect();
+              $query = $db->query('SELECT COUNT(nodoc) AS count_doc FROM doc WHERE 1=1 AND xdoc1 <> ""');
+              //you get result as an array in here but fetch your result however you feel to
+              $result = $query->getResultArray();
+
+              foreach ($result as $d) {
+                echo $d['count_doc'];
+              }
+              ?>
+
+            </h3>
 
             <p>Document File Recorded</p>
           </div>
@@ -58,7 +83,20 @@
         <!-- small box -->
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>7</h3>
+            <h3>
+
+              <?php
+              $db = db_connect();
+              $query = $db->query('SELECT COUNT(id) AS count_id FROM users WHERE 1=1');
+              //you get result as an array in here but fetch your result however you feel to
+              $result = $query->getResultArray();
+
+              foreach ($result as $d) {
+                echo $d['count_id'];
+              }
+              ?>
+
+            </h3>
 
             <p>User Registrations</p>
           </div>
@@ -74,9 +112,20 @@
         <!-- small box -->
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3>125</h3>
+            <h3>
 
-            <p>Download Public Documents</p>
+              <?php
+              $rootDir = $_SERVER['DOCUMENT_ROOT'];
+              $it = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($rootDir, RecursiveDirectoryIterator::SKIP_DOTS)
+              );
+              $numberOfFiles = iterator_count($it);
+              echo $numberOfFiles;
+              ?>
+
+            </h3>
+
+            <p>Public Documents</p>
           </div>
           <div class="icon">
             <i class="ion ion-pie-graph"></i>

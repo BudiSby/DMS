@@ -37,6 +37,17 @@
                             <?= csrf_field(); ?>
 
                             <div class="form-group">
+                                <label for="noyear">Year</label>
+                                <select name="noyear" id="noyear" class="form-control <?= ($error = validation_show_error('noyear')) ? 'border-danger' : ''; ?>">
+                                    <?php foreach ($year as $d) : ?>
+                                        <option value="<?= $d['noyear']; ?>"><?= $d['year_name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
+
+
+                            <div class="form-group">
                                 <label for="nodiv">Division</label>
                                 <select name="nodiv" id="nodiv" class="form-control <?= ($error = validation_show_error('nodiv')) ? 'border-danger' : ''; ?>">
                                     <?php foreach ($division as $d) : ?>

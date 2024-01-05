@@ -38,6 +38,21 @@
                             <!-- GET, POST, PUT, PATCH, DELETE-->
 
                             <div class="form-group">
+                                <label for="noyear">Year</label>
+                                <select name="noyear" id="noyear" class="form-control <?= ($error = validation_show_error('noyear')) ? 'border-danger' : ''; ?>">
+                                    <?php foreach ($year as $d) : ?>
+                                        <?php if ($d['noyear'] == $data['noyear']) : ?>
+                                            <option selected value="<?= $d['noyear']; ?>"><?= $d['year_name']; ?></option>
+                                        <?php else : ?>
+                                            <option value="<?= $d['noyear']; ?>"><?= $d['year_name']; ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
+
+
+                            <div class="form-group">
                                 <label for="nodiv">Division</label>
                                 <select name="nodiv" id="nodiv" class="form-control <?= ($error = validation_show_error('nodiv')) ? 'border-danger' : ''; ?>">
                                     <?php foreach ($division as $d) : ?>
@@ -104,7 +119,9 @@
 
                             <?= ($error) ? '<div class="error text-danger mb-2" style="margin-top: -15px">' . $error . '</div>' : ''; ?>
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="<?= base_url($link); ?>" class="btn btn-secondary">Batal</a>
+                            <a href="<?= base_url($link); ?>" class="btn btn-secondary">Cancel</a>
+
+                            <a href="javascript:window.history.go(-1);" class="btn btn-info">Back</a>
                         </form>
                     </div>
                 </div>

@@ -27,3 +27,15 @@ Template login, register and dashboard AdminLTE
 
 - username : member
 - password : 123
+
+# Noted.
+
+If you have any idea / suggestion for any improvement, upgrade, enhanced and even more customize. Please feel free to reach on :
+
+WhatsApp : https://api.whasapp.com/send/?phone=6285645300221
+
+Skype : https://join.skype.com/invite/y7l4Ovl54TWS
+
+WeChat ID : Robby-Budiawan
+
+Indonesia
