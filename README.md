@@ -30,7 +30,12 @@ Template login, register and dashboard AdminLTE
 
 # Noted.
 
+<<<<<<< HEAD
 If you have any idea / suggestion for any improvement, upgrade, enhanced and even more customize. Please feel free to reach on :
+=======
+If you have any idea / suggestion for any improvement, upgrade, enhanced and even more customize.
+Please feel free to reach on :
+>>>>>>> fc33863d6c0311e7ff3f3e4114e70cf7b77370df
 
 WhatsApp : https://api.whasapp.com/send/?phone=6285645300221
 
